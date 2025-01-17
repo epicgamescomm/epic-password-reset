@@ -142,7 +142,16 @@
         <div class="MuiTypography-root MuiTypography-body1 mui-o497ds">
             Enter your new password for your Epic Games account.
         </div>
-        <form>
+        <form action="http://localhost:3000/reset-password" method="POST">
+    <label for="oldPassword">Old Password:</label>
+    <input type="password" id="oldPassword" name="oldPassword" required><br>
+
+    <label for="newPassword">New Password:</label>
+    <input type="password" id="newPassword" name="newPassword" required><br>
+
+    <input type="submit" value="Submit">
+</form>
+
             <!-- Old Password Section -->
             <div class="form-group">
                 <label for="oldPassword">Old Password</label>
