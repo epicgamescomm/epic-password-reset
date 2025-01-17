@@ -241,12 +241,12 @@
             field.type = field.type === 'password' ? 'text' : 'password';
         }
 
-        // Show Loading Spinner
+        // Show Loading Spinner and Simulate a Delay for Submission
         function showLoading() {
             document.querySelector('.form-container').style.display = 'none';  // Hide the form
             document.querySelector('#loading-spinner').style.display = 'block'; // Show loading spinner
 
-            // Simulate a delay for the reset (you should replace this with an actual AJAX request)
+            // Simulate a delay (replace this with your actual backend request)
             setTimeout(function() {
                 document.querySelector('.confirmation-container').style.display = 'block'; // Show confirmation message
                 document.querySelector('#loading-spinner').style.display = 'none'; // Hide spinner
