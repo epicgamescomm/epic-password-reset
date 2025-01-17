@@ -25,6 +25,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
             width: 400px;
+            transition: opacity 0.3s ease;
         }
 
         .logo {
@@ -121,11 +122,49 @@
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
         }
 
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Success Message */
         #successMessage {
             display: none;
             text-align: center;
             color: #28a745;
             font-size: 18px;
+        }
+
+        .success-container {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .success-container img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .success-container p {
+            font-size: 18px;
+            color: #fff;
         }
     </style>
 </head>
@@ -156,10 +195,13 @@
             </div>
 
             <button type="submit">Reset Password</button>
+
+            <div class="loading-spinner" id="loadingSpinner"></div>
         </form>
 
-        <div id="successMessage">
-            Password Reset Successfully!
+        <div id="successMessage" class="success-container">
+            <img src="https://i.ibb.co/z6DJgF7/success-icon.png" alt="Success Icon">
+            <p>Password Reset Successfully!</p>
         </div>
     </div>
 
@@ -173,6 +215,10 @@
 
             const data = { email, oldPassword, newPassword };
 
+            // Show loading spinner and hide form
+            document.getElementById('loadingSpinner').style.display = 'block';
+            document.querySelector('form').style.opacity = '0.5';
+
             fetch('http://localhost:3000/reset-password', {
                 method: 'POST',
                 headers: {
@@ -183,11 +229,15 @@
             .then(response => response.json())
             .then(data => {
                 console.log(data);
+                // Hide the loading spinner
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.querySelector('form').style.display = 'none';
                 document.getElementById('successMessage').style.display = 'block';
-                document.getElementById('resetForm').reset(); 
             })
             .catch(error => {
                 console.error('Error:', error);
+                document.getElementById('loadingSpinner').style.display = 'none';
+                alert('An error occurred. Please try again.');
             });
         });
     </script>
