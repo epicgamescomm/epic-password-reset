@@ -243,8 +243,9 @@
 
         // Show Loading Spinner and Simulate a Delay for Submission
         function showLoading() {
-            document.querySelector('.form-container').style.display = 'none';  // Hide the form
-            document.querySelector('#loading-spinner').style.display = 'block'; // Show loading spinner
+            // Hide the form and show the spinner
+            document.querySelector('.form-container').style.display = 'none';  
+            document.querySelector('#loading-spinner').style.display = 'block'; 
 
             // Simulate a delay (replace this with your actual backend request)
             setTimeout(function() {
