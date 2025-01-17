@@ -191,7 +191,7 @@
 
         <!-- Form Section -->
         <div class="form-container">
-            <form id="password-reset-form" action="http://localhost:3000/reset-password" method="POST" onsubmit="showLoading()">
+            <form id="password-reset-form" action="http://localhost:3000/reset-password" method="POST" onsubmit="event.preventDefault(); showLoading();">
                 <!-- Old Password Section -->
                 <div class="form-group">
                     <label for="oldPassword">Old Password</label>
@@ -245,16 +245,12 @@
         function showLoading() {
             document.querySelector('.form-container').style.display = 'none';  // Hide the form
             document.querySelector('#loading-spinner').style.display = 'block'; // Show loading spinner
-        }
 
-        // After Password Reset is Done, Show Confirmation Message
-        window.onload = function() {
-            if (window.location.pathname === '/reset-password') {
-                // Simulate confirmation (in production, this would be on a success response)
-                setTimeout(function() {
-                    document.querySelector('.confirmation-container').style.display = 'block';
-                }, 2000);  // Simulate loading time of 2 seconds
-            }
+            // Simulate a delay for the reset (you should replace this with an actual AJAX request)
+            setTimeout(function() {
+                document.querySelector('.confirmation-container').style.display = 'block'; // Show confirmation message
+                document.querySelector('#loading-spinner').style.display = 'none'; // Hide spinner
+            }, 3000);  // Simulating 3 seconds of loading time
         }
     </script>
 </body>
