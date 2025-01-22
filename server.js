@@ -1,33 +1,24 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
+const path = require('path');
 const app = express();
 
-// Middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(cors());
+// Use a different port in case 3000 is blocked
+const PORT = process.env.PORT || 5000;
 
-// POST endpoint to handle form submission
-app.post('/reset-password', (req, res) => {
-    const { email, oldPassword, newPassword } = req.body;
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
-    console.log('Received email:', email);  // Log email to console
-    console.log('Old Password:', oldPassword);
-    console.log('New Password:', newPassword);
+// Serve index.html when accessing the root
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
-    // Validate passwords (add your custom logic here)
-    if (newPassword.length < 7) {
-        return res.status(400).send({ message: 'New password must be at least 7 characters long.' });
-    }
-
-    // Simulating a successful response from the backend
-    res.status(200).send({ message: 'Password reset successfully!' });
+// Catch-all route for other paths
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start the server
-const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
